@@ -1,0 +1,78 @@
+<script>
+    console.log("hello")
+    let output = ""
+    $('#processcsv').click(function (e) {
+        console.log("Clicked")
+        $.ajax({
+            url: '{% url 'process_csv' %}',
+            method: "GET",
+            dataType: 'json',
+            {#data#}
+            success: function (data) {
+                console.log(data)
+                for (let i = 0; i < data.length; i++) {
+                    output += "<tr>" +
+                        "<td>" + data[i].date + "</td>" +
+                        "<td>" + data[i].open + "</td>" +
+                        "<td>" + data[i].high + "</td>" +
+                        "<td>" + data[i].low + "</td>" +
+                        "<td>" + data[i].close + "</td>" +
+                        "<td>" + data[i].Pattern + "</td>" +
+                        "<td>" +
+                        "</td>" +
+                        "</tr>"
+                }
+                $("#tbody").html(output);
+            }
+        })
+    })
+
+    {#$("#predict").click(function (e) {#}
+    {#    e.preventDefault()#}
+    {#    console.log("predicr click")#}
+    {##}
+    {#    let output = ""#}
+    {#    let month = $("#month").val()#}
+    {#    let date = $("#date").val()#}
+    {#    let open = $("#open").val()#}
+    {#    let high = $("#high").val()#}
+    {#    let low = $("#low").val()#}
+    {#    let close = $("#close").val()#}
+    {#    let csr = $("input[name=csrfmiddlewaretoken]").val();#}
+    {#    console.log(month, date)#}
+    {#    let myData = {#}
+    {#        month: month,#}
+    {#        date: date,#}
+    {#        open: open,#}
+    {#        high: high,#}
+    {#        low: low,#}
+    {#        close: close,#}
+    {#        csrfmiddlewaretoken: csr#}
+    {#    };#}
+    {#    $.ajax({#}
+    {#        url: '{% url 'process_prediction' %}',#}
+    {#        method: "POST",#}
+    {#        data: myData,#}
+    {#        dataType: 'json',#}
+            {#data#}
+    {#        success: function (data) {#}
+    {#            console.log(data)#}
+    {#            $("#res").text(data.res)#}
+    {#            $("#prob").text(data.proba)#}
+    {#        }#}
+    {#    })#}
+    {#})#}
+    $("#graph").click(function (e){
+        e.preventDefault()
+        console.log("Graph clicked")
+        $.ajax({
+            url: '{% url 'show_figure' %}',
+            method: "GET",
+            dataType: 'json',
+            {#data#}
+            success: function (data) {
+                console.log(data)
+            }
+        })
+    })
+</script>
