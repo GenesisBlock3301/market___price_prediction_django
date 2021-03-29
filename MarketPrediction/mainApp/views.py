@@ -1304,5 +1304,5 @@ def handle_profile_image(f):
     with open(str(settings.BASE_DIR) + f"/media/{file_name}", 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
-    print(">>>>>>>>>>>>>file name", file_name)
+    # print(">>>>>>>>>>>>>file name", file_name)
     return file_name
