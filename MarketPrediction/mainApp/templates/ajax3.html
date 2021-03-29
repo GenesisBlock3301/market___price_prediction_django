@@ -1,0 +1,25 @@
+<script>
+    console.log("Hello")
+    let output3 = ""
+    $('#processcsv3').click(function (e) {
+        console.log("Clicked final ajax")
+        $.ajax({
+            url: '{% url 'process_csv_display3' %}',
+            method: "GET",
+            dataType: 'json',
+            {#data#}
+            success: function (data) {
+                console.log(data)
+                for (let i = 0; i < data.length; i++) {
+                    output3 += "<tr>" +
+                        "<td>" + data[i].next_pattern + "</td>" +
+                        "<td>" + data[i].Frequency + "</td>" +
+                        "<td>" + data[i].probability_of_apperaing + "%" + "</td>" +
+                        "</tr>"
+                }
+                $("#tbody3").html(output3);
+            }
+        })
+    })
+
+</script>

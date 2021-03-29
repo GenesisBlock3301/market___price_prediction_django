@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="img/candle-sticks.png">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candlestick Pattern Predictor</title>
+    {#    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"#}
+    {#          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">#}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    .form-group {
+        margin-bottom: 2px;
+    }
+</style>
+<h1>Candle Stick Pattern Recognizer and Predictor</h1>
+<div>
+    <form method="post" style="display: flex" class="col-md-4" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="csv_file"/>
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
+{#<button type="button">Upload</button>#}
+{#<button type="button" id="save_pattern_csv">Historical data with identified pattern</button>#}
+<br>
+<button id="processcsv1" style="margin-top: 20px" CLASS="btn-sm col-md-4 " type="button">Displaying Historical data with
+    identified pattern
+</button>
+<hr>
+<div class="scroll-div" style="overflow-y: scroll;height: 220px;border: 1px solid black">
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+            <th>Pattern</th>
+        </tr>
+        </thead>
+        <tbody id="tbody1">
+
+        </tbody>
+    </table>
+</div>
+<br>
+<button type="button" id="graph1">The Graph of Historical data with identified pattern</button>
+<br>
+<br>
+<br>
+<h1>The Prediction</h1>
+<hr>
+<h6>Eneter the Required Price information below acquiring the prediction</h6>
+<form action="" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <input type="text" id="date" placeholder="Date" name="date"/>
+    <input type="text" id="month" placeholder="Month" name="month"/>
+    <input type="text" id="high" placeholder="High" name="high"/>
+    <input type="text" id="open" placeholder="Open" name="open"/>
+    <input type="text" id="low" placeholder="Low" name="low"/>
+    <input type="text" id="close" placeholder="Close" name="close"/>
+    <button type="submit" id="predict1" value="Predict">Predict</button>
+</form>
+
+<br>
+<br>
+<label for="">Predicted Pattern Over Enterd Data</label><br>
+<textarea id="res" id="" cols="30" rows="05"></textarea>
+<br>
+<br>
+<button id="processcsv2" type="button">Historical data with the same pattern of predicted pattern</button>
+{#<h4>Displaying Historical data with the same pattern of predicted pattern </h4>#}
+<hr>
+<div class="scroll-div" style="overflow-y: scroll;height: 220px;border: 1px solid black">
+    <table style="width: 100%">
+        <thead style="border: 1px solid black">
+        <tr>
+            <th>Date</th>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+            <th>Pattern</th>
+        </tr>
+        </thead>
+        <tbody id="tbody2">
+
+        </tbody>
+    </table>
+</div>
+<br>
+<button id="graph2" type="button">The Graph of Historical data with the same pattern of predicted pattern</button>
+<br>
+<br>
+<br>
+<button id="processcsv3" type="button">next_historical Data of the predicted data and it's probability</button>
+<h4>Displaying next_historical Data of the predicted data and it's probability</h4>
+<div class="scroll-div" style="overflow-y: scroll;height: 220px;border: 1px solid black">
+    <table style="width: 100%">
+        <thead style="border: 1px solid black">
+        <tr>
+            <th>Next Pattern</th>
+            <th>Frequency</th>
+            <th>Probability of appearing</th>
+        </tr>
+        </thead>
+        <tbody id="tbody3">
+
+        </tbody>
+    </table>
+</div>
+<hr>
+<script src="{% static 'js/jquery.js' %}"></script>
+{% include 'ajax1.html' %}
+{% include 'ajax2.html' %}
+{% include 'ajax3.html' %}
+</body>
+</html>

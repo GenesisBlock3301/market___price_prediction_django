@@ -1,0 +1,66 @@
+<script>
+    console.log("Hello")
+    let output2 = ""
+    $('#processcsv2').click(function (e) {
+        {#console.log("Clicked final ajax")#}
+        $.ajax({
+            url: '{% url 'process_csv_display2' %}',
+            method: "GET",
+            dataType: 'json',
+            {#data#}
+            success: function (data) {
+                console.log(data)
+                for (let i = 0; i < data.length; i++) {
+                    output2 += "<tr>" +
+                        "<td>" + data[i].date + "</td>" +
+                        "<td>" + data[i].open + "</td>" +
+                        "<td>" + data[i].high + "</td>" +
+                        "<td>" + data[i].low + "</td>" +
+                        "<td>" + data[i].close + "</td>" +
+                        "<td>" + data[i].Pattern + "</td>" +
+                        "<td>" +
+                        "</td>" +
+                        "</tr>"
+                }
+                $("#tbody2").html(output2);
+            }
+        })
+    })
+    $("#graph2").click(function (e){
+        e.preventDefault()
+        {#console.log("Graph clicked")#}
+        $.ajax({
+            url: '{% url 'graph2' %}',
+            method: "GET",
+            dataType: 'json',
+            {#data#}
+            success: function (data) {
+                console.log(data)
+            }
+        })
+    })
+     $("#predict2").click(function (e) {
+        e.preventDefault()
+        {#console.log("predicr click")#}
+        console.log(month, date)
+        let myData = {
+            month: month,
+            date: date,
+            open: open,
+            high: high,
+            low: low,
+            close: close,
+            csrfmiddlewaretoken: csr
+        };
+        $.ajax({
+            url: '{% url 'process_prediction2' %}',
+            method: "POST",
+            data: myData,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+                $("#res").val(data.res)
+            }
+        })
+    })
+</script>
